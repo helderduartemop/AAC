@@ -24,8 +24,8 @@ void init(int argc, char** argv){
 		cols = atoi(argv[1]);
 		rows = atoi(argv[2]);
 	}else{
-            printf("Usage: pathfiner width num_of_steps\n");
-            exit(0);
+        printf("Usage: pathfiner width num_of_steps\n");
+        exit(0);
     }
 	data = new int[rows*cols];
 	wall = new int*[rows];
@@ -36,12 +36,13 @@ void init(int argc, char** argv){
 	int seed = M_SEED;
 	srand(seed);
 
-	for (int i = 0; i < rows; i++){
-        for (int j = 0; j < cols; j++){
+	for (int j = 0; j < cols; j++){
+        for (int i = 0; i < rows; i++){
             wall[i][j] = rand() % 10;
-            result[j] = wall[0][j];
         }
+        result[j] = wall[0][j];
     }
+    
 #ifdef BENCH_PRINT
     for (int i = 0; i < rows; i++){
         for (int j = 0; j < cols; j++){
@@ -79,14 +80,12 @@ void run(int argc, char** argv){
         temp = src;
         src = dst;
         dst = temp;
-        for(int n = 0; n < cols; n++){
-          min = src[n];
-          if (n > 0)
-            min = MIN(min, src[n-1]);
-          if (n < cols-1)
-            min = MIN(min, src[n+1]);
+        min = src[0];
+        for(int n = 0; n < cols-1; n++){
+          min = MIN(min, src[n+1]);
           dst[n] = wall[t+1][n]+min;
         }
+        dst[cols] = wall[t+1][cols]+min;
     }
 
     pin_stats_pause(cycles);
