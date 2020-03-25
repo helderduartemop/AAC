@@ -44,12 +44,17 @@ void init(int argc, char** argv){
     }
     
 #ifdef BENCH_PRINT
+    ofstream myfile;
+    myfile.open ("bench_output.txt");
     for (int i = 0; i < rows; i++){
         for (int j = 0; j < cols; j++){
-            printf("%d ",wall[i][j]) ;
+            //printf("%d ",wall[i][j]) ;
+	    myfile << wall[i][j] << " ";
         }
-        printf("\n") ;
+        //printf("\n") ;
+	myfile << "\n"
     }
+    myfile.close();
 #endif
 }
 
