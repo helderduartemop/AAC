@@ -97,14 +97,20 @@ void run(int argc, char** argv){
     pin_stats_dump(cycles);
 
 #ifdef BENCH_PRINT
+    ofstream myfile;
+    myfile.open ("bench_output.txt");
+    for (int i = 0; i < cols; i++)
+	    myfile << data[i] << " ";
+            //printf("%d ",data[i]) ;
+    //printf("\n") ;
+    myfile << "\n"
 
     for (int i = 0; i < cols; i++)
-            printf("%d ",data[i]) ;
-    printf("\n") ;
-
-    for (int i = 0; i < cols; i++)
-            printf("%d ",dst[i]) ;
-    printf("\n") ;
+	    myfile << dst[i] << " ";
+            //printf("%d ",dst[i]) ;
+    //printf("\n") ;
+    myfile << "\n"
+    myfile.close();
 
 #endif
 
